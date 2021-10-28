@@ -1,19 +1,25 @@
 package com.movierating.controller.movie;
 
+import com.movierating.model.movie.MovieDTO;
+import com.movierating.model.movie.MovieService;
+
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @WebServlet(name = "MovieListServlet", value = "/movie/list")
 public class MovieListServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("utf-8");
 
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        MovieService service = new MovieService();
+        List<MovieDTO> movies = service.selectMovies();
+        request.setAttribute("movies", movies);
+        RequestDispatcher rd = request.getRequestDispatcher("../movie/movielistall.jsp");
+        rd.forward(request, response);
     }
 }

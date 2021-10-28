@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MovieDAO {
-    public MovieDTO makeMovieDTO(int movieNo, String name, Date date, String genre, int runningTime, int ageLimit, String detail, int ratingCount, int accRating, String posterUrl, String nameOrigin, String nation, double average) {
+    public static MovieDTO makeMovieDTO(int movieNo, String name, Date date, String genre, int runningTime, int ageLimit, String detail, int ratingCount, int accRating, String posterUrl, String nameOrigin, String nation, double average) {
         MovieDTO movie = new MovieDTO();
 
         movie.setMovieNo(movieNo);
@@ -44,21 +44,21 @@ public class MovieDAO {
             //st.setInt(1, movieNo);
             rs = st.executeQuery();
             while (rs.next()) {
-                int movieID = rs.getInt("cno");
-                String name = rs.getString("cname");
-                Date date = rs.getDate("cdate");
-                String genre = rs.getString("cgenre");
-                int runningTime = rs.getInt("crunningtime");
-                int ageLimit = rs.getInt("cagelimit");
-                String detail = rs.getString("cdetail");
-                int ratingCount = rs.getInt("cratingcount");
-                int accRating = rs.getInt("caccrating");
-                String posterUrl = rs.getString("cposter");
-                String nameOrigin = rs.getString("cname_origin");
+                int movieID = rs.getInt("movie_id");
+                String name = rs.getString("movie_name");
+                Date date = rs.getDate("movie_date");
+                String genre = rs.getString("genre");
+                int runningTime = rs.getInt("runningtime");
+                int ageLimit = rs.getInt("age");
+                String detail = rs.getString("detail");
+                int ratingCount = rs.getInt("ratingcount");
+                int accRating = rs.getInt("total_score");
+                String posterUrl = rs.getString("poster_url");
+                String nameOrigin = rs.getString("name_origin");
                 String nation = rs.getString("nation");
                 double average = rs.getDouble("average");
 
-                movieList.add(new MovieDTO(movieID, name, date, genre, runningTime, ageLimit, detail, ratingCount, accRating, posterUrl, nameOrigin, nation, average));
+                movieList.add(makeMovieDTO(movieID, name, date, genre, runningTime, ageLimit, detail, ratingCount, accRating, posterUrl, nameOrigin, nation, average));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -70,7 +70,7 @@ public class MovieDAO {
     }
 
 
-    public MovieDTO selectMovieByID(int movieNo) {
+    public MovieDTO selectMovieByID(int movieID) {
         MovieDTO movie = null;
         String SQL = "select * from movie";
         String SQL_WHERE_MOVIENO = " where cno = ?";
@@ -81,20 +81,19 @@ public class MovieDAO {
 
         try {
             st = conn.prepareStatement(SQL+SQL_WHERE_MOVIENO);
-            st.setInt(1, movieNo);
+            st.setInt(1, movieID);
             rs = st.executeQuery();
             while (rs.next()) {
-                int movieID = movieNo;
-                String name = rs.getString("cname");
-                Date date = rs.getDate("cdate");
-                String genre = rs.getString("cgenre");
-                int runningTime = rs.getInt("crunningtime");
-                int ageLimit = rs.getInt("cagelimit");
-                String detail = rs.getString("cdetail");
-                int ratingCount = rs.getInt("cratingcount");
-                int accRating = rs.getInt("caccrating");
-                String posterUrl = rs.getString("cposter");
-                String nameOrigin = rs.getString("cname_origin");
+                String name = rs.getString("movie_name");
+                Date date = rs.getDate("movie_date");
+                String genre = rs.getString("genre");
+                int runningTime = rs.getInt("runningtime");
+                int ageLimit = rs.getInt("age");
+                String detail = rs.getString("detail");
+                int ratingCount = rs.getInt("ratingcount");
+                int accRating = rs.getInt("total_score");
+                String posterUrl = rs.getString("poster_url");
+                String nameOrigin = rs.getString("name_origin");
                 String nation = rs.getString("nation");
                 double average = rs.getDouble("average");
 
