@@ -12,21 +12,20 @@ public class DBUtil {
         String url, id, pass;
         try {
             Class.forName("oracle.jdbc.driver.OracleDriver");
-
+/*
             Properties pro = new Properties();
-            path = path + "\\WEB-INF\\dbinfo.properties";
+            path = path + "../WebContent/WEB-INF/dbinfo.properties";
             pro.load(new FileReader(path));
             url = pro.getProperty("url");
             id = pro.getProperty("userid");
             pass = pro.getProperty("password");
+            */
+
+            url = "jdbc:oracle:thin:@cometdb1_medium?TNS_ADMIN=/Users/jungcomet/comet/lib/Wallet_cometdb1";
+            id = "admin";
+            pass = "Kosta226kosta";
             conn = DriverManager.getConnection(url, id, pass);
         } catch (ClassNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         } catch (SQLException e) {
