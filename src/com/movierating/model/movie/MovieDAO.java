@@ -73,7 +73,7 @@ public class MovieDAO {
     public MovieDTO selectMovieByID(int movieID) {
         MovieDTO movie = null;
         String SQL = "select * from movie";
-        String SQL_WHERE_MOVIENO = " where cno = ?";
+        String SQL_WHERE_MOVIENO = " where movie_id = ?";
 
         Connection conn = DBUtil.dbConnect("");
         PreparedStatement st = null;
