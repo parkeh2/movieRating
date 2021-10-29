@@ -12,4 +12,8 @@ public class MovieService {
     public MovieDTO selectMovieByID(int movieNo) {
         return dao.selectMovieByID(movieNo);
     }
+
+    public boolean insertMovie(MovieDTO movie) {
+        return dao.insertMovie(movie);
+    }
 }

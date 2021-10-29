@@ -107,4 +107,44 @@ public class MovieDAO {
 
         return movie;
     }
+
+    public boolean insertMovie(MovieDTO movie) {
+        String SQL = "insert into movie " +
+                "(movie_name, movie_date, genre, runningtime, age, detail, poster_url, name_origin, nation)" +
+                " values (?,?,?,?,?,?,?,?,?)";
+
+        String name = movie.getName();
+        Date date = movie.getDate();
+        String genre = movie.getGenre();
+        int runningTime = movie.getRunningTime();
+        int ageLimit = movie.getAgeLimit();
+        String detail = movie.getDetail();
+        String posterUrl = movie.getPosterUrl();
+        String nameOrigin = movie.getNameOrigin();
+        String nation = movie.getNation();
+
+        Connection conn = DBUtil.dbConnect("");
+        PreparedStatement st = null;
+        ResultSet rs = null;
+
+        try {
+            st = conn.prepareStatement(SQL);
+            st.setString(1, name);
+            st.setDate(2, date);
+            st.setString(3, genre);
+            st.setInt(4, runningTime);
+            st.setInt(5, ageLimit);
+            st.setString(6, detail);
+            st.setString(7, posterUrl);
+            st.setString(8, nameOrigin);
+            st.setString(9, nation);
+            rs = st.executeQuery();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            DBUtil.dbClose(conn, st, rs);
+        }
+        return true;
+    }
 }
