@@ -13,10 +13,7 @@
     <title>영화 목록</title>
 </head>
 <body>
-
-
 <h1 align="center">영화 목록</h1>
-
     <p align="center"><a href="${contextPath}/movie/add">영화 추가</a></p>
     <table align="center">
         <tr>

@@ -1,5 +1,8 @@
 package com.movierating.controller.movie;
 
+import com.movierating.model.movie.MovieDTO;
+import com.movierating.model.movie.MovieService;
+
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
@@ -10,12 +13,14 @@ public class MovieUpdateServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("utf-8");
+        String movieid = request.getParameter("movieid");
+        int movieNo = Integer.parseInt(movieid);
+        MovieService service = new MovieService();
 
-        String movie_id = request.getParameter("movieid");
-    }
+        MovieDTO movie = service.selectMovieByID(movieNo);
+        request.setAttribute("movie", movie);
 
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        RequestDispatcher rd = request.getRequestDispatcher("movieupdate.jsp");
+        rd.forward(request, response);
     }
 }

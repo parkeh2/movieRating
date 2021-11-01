@@ -19,7 +19,9 @@ public class MovieListServlet extends HttpServlet {
         MovieService service = new MovieService();
         List<MovieDTO> movies = service.selectMovies();
         request.setAttribute("movies", movies);
-        RequestDispatcher rd = request.getRequestDispatcher("../movie/movielistall.jsp");
+/*        String path = getServletContext().getRealPath("movielistall.jsp");
+        System.out.println(path);*/
+        RequestDispatcher rd = request.getRequestDispatcher("movielistall.jsp");
         rd.forward(request, response);
     }
 }

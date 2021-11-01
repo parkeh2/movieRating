@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="contextPath"  value="${pageContext.request.contextPath}"  />
 <html>
 <head>
     <title>영화 상세정보</title>
@@ -16,11 +17,12 @@
 
 <div>
     <!--포스터 이미지 출력-->
-    <p><img src="/images/poster/${movie.posterUrl}" alt="${movie.posterUrl}" /></p>
+    <p><img src="${contextPath}/images/poster/${movie.posterUrl}" alt="${movie.posterUrl}" /></p>
 </div>
 <div>
     <h2>${movie.name}</h2>
     <p>${movie.date} 개봉 / ${movie.genre} / ${movie.nation}</p>
+    <p>원제 : ${movie.nameOrigin}</p>
     <h3>평균⭐️ ${movie.average} (${movie.ratingCount}명 평가)</h3>
 </div>
 <div>
@@ -43,6 +45,9 @@
 <div>
     <h3>컬렉션</h3>
     <p><!-- 컬렉션 영역 --></p>
+</div>
+<div>
+    <p><a href="${contextPath}/movie/update?movieid=${movie.movieNo}">수정하기</a></p>
 </div>
 <!--
 <table align="center">
