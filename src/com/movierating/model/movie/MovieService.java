@@ -16,4 +16,8 @@ public class MovieService {
     public boolean insertMovie(MovieDTO movie) {
         return dao.insertMovie(movie);
     }
+
+    public boolean updateMovie(MovieDTO movie) {
+        return dao.updateMovie(movie);
+    }
 }

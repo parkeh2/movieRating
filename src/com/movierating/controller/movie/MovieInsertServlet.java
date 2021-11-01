@@ -8,11 +8,21 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.sql.Date;
+import java.util.List;
 
 @WebServlet(name = "MovieInsertServlet", value = "/movie/insert")
 public class MovieInsertServlet extends HttpServlet {
     @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        doHandle(request, response);
+    }
+
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        doHandle(request, response);
+    }
+
+    protected void doHandle(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("utf-8");
 
         String name = request.getParameter("name");
@@ -40,10 +50,10 @@ public class MovieInsertServlet extends HttpServlet {
         MovieService service = new MovieService();
         boolean result = service.insertMovie(movie);
 
-        request.setAttribute("movie", movie);
-        request.setAttribute("result", result);
+        List<MovieDTO> movies = service.selectMovies();
+        request.setAttribute("movies", movies);
 
-        RequestDispatcher rd = request.getRequestDispatcher("movieinsertresult.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("movielistall.jsp");
         rd.forward(request, response);
     }
 }
