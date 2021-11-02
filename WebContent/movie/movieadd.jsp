@@ -15,7 +15,7 @@
 </head>
 <body>
     <h1>영화 등록</h1>
-    <form action="${contextPath}/movie/insert" method="post" encType="utf-8">
+    <form action="${contextPath}/movie/add" method="post" encType="utf-8">
     <table>
         <tr>
             <td>영화명</td>

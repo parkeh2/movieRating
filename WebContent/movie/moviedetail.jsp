@@ -11,8 +11,42 @@
 <html>
 <head>
     <title>영화 상세정보</title>
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 </head>
 <body>
+<c:choose>
+    <c:when test="${msg=='update_success'}">
+        <script>
+            $(function () {
+               alert("영화 정보 업데이트에 성공했습니다.");
+            });
+        </script>
+    </c:when>
+    <c:when test="${msg=='update_fail'}">
+        <script>
+            $(function () {
+                alert("영화 정보 업데이트에 실패했습니다.");
+            });
+            window.location.replace("${contextPath}/movie/update?movieid=${movie.movieNo}");
+        </script>-
+    </c:when>
+    <c:when test="${msg=='add_success'}">
+        <script>
+            $(function () {
+                alert("영화를 추가했습니다.");
+            });
+        </script>
+    </c:when>
+    <c:when test="${msg=='add_fail'}">
+        <script>
+            $(function () {
+                alert("영화를 추가하는 데 실패했습니다.");
+            });
+            window.location.replace("${contextPath}/movie/add");
+        </script>
+    </c:when>
+</c:choose>
+
 <h1 align="center">영화 상세정보</h1>
 
 <div>
@@ -49,31 +83,5 @@
 <div>
     <p><a href="${contextPath}/movie/update?movieid=${movie.movieNo}">수정하기</a></p>
 </div>
-<!--
-<table align="center">
-    <tr>
-        <th>번호</th>
-        <th>포스터</th>
-        <th>이름</th>
-        <th>장르</th>
-        <th>개봉일</th>
-        <th>러닝타임</th>
-        <th>별점</th>
-    </tr>
-    <c:set var="cnt" value="1" />
-    <c:forEach items="${movies}" var="movie">
-        <c:set var="sum" value="${sum+1}" />
-        <tr>
-            <td>${sum}</td>
-            <td>${movie.posterUrl}</td>
-            <td><a href="moviedetail?movieid=${movie.movieNo}">${movie.name}</a></td>
-            <td>${movie.genre}</td>
-            <td>${movie.date}</td>
-            <td>${movie.runningTime}</td>
-            <td>${movie.average}</td>
-        </tr>
-    </c:forEach>
-</table>
--->
 </body>
 </html>

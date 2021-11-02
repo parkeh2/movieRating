@@ -149,9 +149,7 @@ public class MovieDAO {
     }
 
     public boolean updateMovie(MovieDTO movie) {
-        String SQL = "update movie " +
-                "set movie_name = ?, movie_date = ?, genre = ?, runningtime = ?, age = ?, detail = ?, poster_url = ?, name_origin = ?, nation = ? " +
-                "where movie.movie_id = ?;";
+        String SQL = "update movie set movie_name = ?, movie_date = ?, genre = ?, runningtime = ?, age = ?, detail = ?, poster_url = ?, name_origin = ?, nation = ? where movie_id = ?";
 
         String name = movie.getName();
         Date date = movie.getDate();
@@ -162,6 +160,7 @@ public class MovieDAO {
         String posterUrl = movie.getPosterUrl();
         String nameOrigin = movie.getNameOrigin();
         String nation = movie.getNation();
+        int movie_id = movie.getMovieNo();
 
         Connection conn = DBUtil.dbConnect("");
         PreparedStatement st = null;
@@ -178,6 +177,7 @@ public class MovieDAO {
             st.setString(7, posterUrl);
             st.setString(8, nameOrigin);
             st.setString(9, nation);
+            st.setInt(10, movie_id);
             rs = st.executeQuery();
         } catch (Exception e) {
             e.printStackTrace();

@@ -12,7 +12,16 @@ import java.sql.Date;
 @WebServlet(name = "MovieModifyServlet", value = "/movie/modify")
 public class MovieModifyServlet extends HttpServlet {
     @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        doHandle(req, resp);
+    }
+
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        doHandle(request, response);
+    }
+
+    protected void doHandle(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("utf-8");
 
         String movieid = request.getParameter("movieid");
@@ -27,23 +36,8 @@ public class MovieModifyServlet extends HttpServlet {
         String detail = request.getParameter("detail");
         String posterUrl = request.getParameter("poster_url");
 
-
         MovieService service = new MovieService();
         MovieDTO movie = service.selectMovieByID(movieNo);
-        MovieDTO newMovie = new MovieDTO();
-        newMovie.setName(name);
-        newMovie.setNameOrigin(nameOrigin);
-        newMovie.setDate(date);
-        newMovie.setGenre(genre);
-        newMovie.setRunningTime(runningTime);
-        newMovie.setAgeLimit(age);
-        newMovie.setNation(nation);
-        newMovie.setDetail(detail);
-        newMovie.setPosterUrl(posterUrl);
-
-
-        // 변경된 항목 찾기
-
 
         movie.setName(name);
         movie.setNameOrigin(nameOrigin);
@@ -56,15 +50,13 @@ public class MovieModifyServlet extends HttpServlet {
         movie.setPosterUrl(posterUrl);
 
         boolean result = service.updateMovie(movie);
-        String nextPage;
         if (result) {
             request.setAttribute("movie", movie);
-            nextPage = "moviedetail?movieid=" + movieNo + ".jsp";
+            request.setAttribute("msg", "update_success");
         } else {
-            nextPage = "moviemodifyresult.jsp";
+            request.setAttribute("msg", "update_fail");
         }
-        RequestDispatcher rd = request.getRequestDispatcher(nextPage);
+        RequestDispatcher rd = request.getRequestDispatcher("moviedetail.jsp");
         rd.forward(request, response);
-
     }
 }
