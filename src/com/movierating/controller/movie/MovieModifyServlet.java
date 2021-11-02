@@ -12,21 +12,17 @@ import java.sql.Date;
 @WebServlet(name = "MovieModifyServlet", value = "/movie/modify")
 public class MovieModifyServlet extends HttpServlet {
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        doHandle(req, resp);
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doHandle(request, response);
     }
 
-    protected void doHandle(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void doHandle(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException  {
         request.setCharacterEncoding("utf-8");
 
         String movieid = request.getParameter("movieid");
         int movieNo = Integer.parseInt(movieid);
-        String name = request.getParameter("name");
+
+/*        String name = request.getParameter("name");
         String nameOrigin = request.getParameter("nameorigin");
         Date date = Date.valueOf(request.getParameter("date"));
         String genre = request.getParameter("genre");
@@ -34,29 +30,18 @@ public class MovieModifyServlet extends HttpServlet {
         int age = Integer.valueOf(request.getParameter("age"));
         String nation = request.getParameter("nation");
         String detail = request.getParameter("detail");
-        String posterUrl = request.getParameter("poster_url");
+        String posterUrl = request.getParameter("poster_url");*/
 
         MovieService service = new MovieService();
         MovieDTO movie = service.selectMovieByID(movieNo);
 
-        movie.setName(name);
-        movie.setNameOrigin(nameOrigin);
-        movie.setDate(date);
-        movie.setGenre(genre);
-        movie.setRunningTime(runningTime);
-        movie.setAgeLimit(age);
-        movie.setNation(nation);
-        movie.setDetail(detail);
-        movie.setPosterUrl(posterUrl);
-
-        boolean result = service.updateMovie(movie);
-        if (result) {
-            request.setAttribute("movie", movie);
-            request.setAttribute("msg", "update_success");
-        } else {
-            request.setAttribute("msg", "update_fail");
-        }
-        RequestDispatcher rd = request.getRequestDispatcher("moviedetail.jsp");
+        request.setAttribute("movie", movie);
+        RequestDispatcher rd = request.getRequestDispatcher("moviemodify.jsp");
         rd.forward(request, response);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        doHandle(request, response);
     }
 }

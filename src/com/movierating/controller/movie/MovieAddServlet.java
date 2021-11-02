@@ -48,6 +48,8 @@ public class MovieAddServlet extends HttpServlet {
         movie.setPosterUrl(posterUrl);
 
         boolean result = service.insertMovie(movie);
+        int movieNo = service.selectMovieByCondition(name, date, runningTime);
+        movie.setMovieNo(movieNo);
 
         if (result) {
             request.setAttribute("movie", movie);

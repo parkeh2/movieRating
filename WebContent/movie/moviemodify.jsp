@@ -12,10 +12,15 @@
 <html>
 <head>
     <title>영화 수정</title>
+    <script>
+        function confirm_msg() {
+            confirm("영화 정보를 수정하시겠습니까?");
+        }
+    </script>
 </head>
 <body>
     <h1>영화 수정</h1>
-    <form action="${contextPath}/movie/modify" method="post">
+    <form action="${contextPath}/movie/modify/submit" method="post" onsubmit="confirm_msg();">
         <table>
             <tr>
                 <td>영화ID</td>
@@ -31,7 +36,7 @@
             </tr>
             <tr>
                 <td>개봉일</td>
-                <td><input type="text" name="date" value="${movie.date}"></td>
+                <td><input type="date" name="date" value="${movie.date}"></td>
             </tr>
             <tr>
                 <td>장르</td>
@@ -51,14 +56,14 @@
             </tr>
             <tr>
                 <td>상세설명</td>
-                <td><input type="text" name="detail" value="${movie.detail}"></td>
+                <td><textarea name="detail" id="detail" cols="30" rows="5">${movie.detail}</textarea></td>
             </tr>
             <tr>
                 <td>포스터</td>
                 <td><input type="text" name="poster_url" value="${movie.posterUrl}"></td>
             </tr>
             <tr>
-                <td colspan="2"><input type="submit" value="수정하기"><input type="reset" value="다시입력"></td>
+                <td colspan="2"><input type="submit" value="수정하기"><button onclick="window.history.back()">뒤로가기</button></td>
             </tr>
         </table>
     </form>

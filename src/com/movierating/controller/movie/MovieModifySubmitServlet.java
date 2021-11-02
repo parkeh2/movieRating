@@ -8,13 +8,12 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.sql.Date;
-import java.util.List;
 
-@WebServlet(name = "MovieInsertServlet", value = "/movie/insert")
-public class MovieInsertServlet extends HttpServlet {
+@WebServlet(name = "MovieModifySubmitServlet", value = "/movie/modify/submit")
+public class MovieModifySubmitServlet extends HttpServlet {
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doHandle(request, response);
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        doHandle(req, resp);
     }
 
     @Override
@@ -25,6 +24,8 @@ public class MovieInsertServlet extends HttpServlet {
     protected void doHandle(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("utf-8");
 
+        String movieid = request.getParameter("movieid");
+        int movieNo = Integer.parseInt(movieid);
         String name = request.getParameter("name");
         String nameOrigin = request.getParameter("nameorigin");
         Date date = Date.valueOf(request.getParameter("date"));
@@ -35,7 +36,8 @@ public class MovieInsertServlet extends HttpServlet {
         String detail = request.getParameter("detail");
         String posterUrl = request.getParameter("poster_url");
 
-        MovieDTO movie = new MovieDTO();
+        MovieService service = new MovieService();
+        MovieDTO movie = service.selectMovieByID(movieNo);
 
         movie.setName(name);
         movie.setNameOrigin(nameOrigin);
@@ -47,13 +49,15 @@ public class MovieInsertServlet extends HttpServlet {
         movie.setDetail(detail);
         movie.setPosterUrl(posterUrl);
 
-        MovieService service = new MovieService();
-        boolean result = service.insertMovie(movie);
+        boolean result = service.updateMovie(movie);
+        if (result) {
+            request.setAttribute("movie", movie);
+            request.setAttribute("msg", "update_success");
+        } else {
+            request.setAttribute("msg", "update_fail");
+        }
 
-        List<MovieDTO> movies = service.selectMovies();
-        request.setAttribute("movies", movies);
-
-        RequestDispatcher rd = request.getRequestDispatcher("movielistall.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("/movie/moviedetail.jsp");
         rd.forward(request, response);
     }
 }

@@ -108,6 +108,32 @@ public class MovieDAO {
         return movie;
     }
 
+    public int selectMovieByCondition(String name, Date date, int runningTime) {
+        String SQL = "select movie_id from movie where movie_name = ? and movie_date = ? and runningtime = ?";
+
+        int movieNo = 0;
+        Connection conn = DBUtil.dbConnect("");
+        PreparedStatement st = null;
+        ResultSet rs = null;
+
+        try {
+            st = conn.prepareStatement(SQL);
+            st.setString(1, name);
+            st.setDate(2, date);
+            st.setInt(3, runningTime);
+            rs = st.executeQuery();
+            while (rs.next()) {
+                movieNo = rs.getInt(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            DBUtil.dbClose(conn, st, rs);
+        }
+
+        return movieNo;
+    }
+
     public boolean insertMovie(MovieDTO movie) {
         String SQL = "insert into movie " +
                 "(movie_name, movie_date, genre, runningtime, age, detail, poster_url, name_origin, nation)" +
@@ -124,27 +150,30 @@ public class MovieDAO {
         String nation = movie.getNation();
 
         Connection conn = DBUtil.dbConnect("");
-        PreparedStatement st = null;
-        ResultSet rs = null;
+        PreparedStatement st1 = null;
+        ResultSet rs1 = null;
 
         try {
-            st = conn.prepareStatement(SQL);
-            st.setString(1, name);
-            st.setDate(2, date);
-            st.setString(3, genre);
-            st.setInt(4, runningTime);
-            st.setInt(5, ageLimit);
-            st.setString(6, detail);
-            st.setString(7, posterUrl);
-            st.setString(8, nameOrigin);
-            st.setString(9, nation);
-            rs = st.executeQuery();
+            st1 = conn.prepareStatement(SQL);
+            st1.setString(1, name);
+            st1.setDate(2, date);
+            st1.setString(3, genre);
+            st1.setInt(4, runningTime);
+            st1.setInt(5, ageLimit);
+            st1.setString(6, detail);
+            st1.setString(7, posterUrl);
+            st1.setString(8, nameOrigin);
+            st1.setString(9, nation);
+            rs1 = st1.executeQuery();
         } catch (Exception e) {
             e.printStackTrace();
             return false;
         } finally {
-            DBUtil.dbClose(conn, st, rs);
+            DBUtil.dbClose(conn, st1, rs1);
         }
+
+
+
         return true;
     }
 
@@ -178,6 +207,25 @@ public class MovieDAO {
             st.setString(8, nameOrigin);
             st.setString(9, nation);
             st.setInt(10, movie_id);
+            rs = st.executeQuery();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            DBUtil.dbClose(conn, st, rs);
+        }
+        return true;
+    }
+
+    public boolean deleteMovie(int movieNo) {
+        String SQL = "delete from movie where movie_id = ?";
+        Connection conn = DBUtil.dbConnect("");
+        PreparedStatement st = null;
+        ResultSet rs = null;
+
+        try {
+            st = conn.prepareStatement(SQL);
+            st.setInt(1, movieNo);
             rs = st.executeQuery();
         } catch (Exception e) {
             e.printStackTrace();
