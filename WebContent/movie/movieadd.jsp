@@ -20,7 +20,7 @@
 </head>
 <body>
     <h1>영화 등록</h1>
-    <form action="${contextPath}/movie/add" method="post" onsubmit="confirm_msg();" encType="utf-8">
+    <form action="${contextPath}/movie/add" method="post" onsubmit="confirm_msg();" encType="multipart/form-data">
     <table>
         <tr>
             <td>영화명</td>
