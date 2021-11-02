@@ -1,5 +1,6 @@
 package com.movierating.model.movie;
 
+import java.sql.Date;
 import java.util.List;
 
 public class MovieService {
@@ -19,5 +20,13 @@ public class MovieService {
 
     public boolean updateMovie(MovieDTO movie) {
         return dao.updateMovie(movie);
+    }
+
+    public boolean deleteMovie(int movieNo) {
+        return dao.deleteMovie(movieNo);
+    }
+
+    public int selectMovieByCondition(String name, Date date, int runningTime) {
+        return dao.selectMovieByCondition(name, date, runningTime);
     }
 }

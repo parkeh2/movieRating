@@ -11,10 +11,11 @@
 <html>
 <head>
     <title>영화 목록</title>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 </head>
 <body>
 <h1 align="center">영화 목록</h1>
-    <p align="center"><a href="${contextPath}/movie/add">영화 추가</a></p>
+    <p align="center"><a href="${contextPath}/movie/movieadd.jsp">영화 추가</a></p>
     <table align="center">
         <tr>
             <th>번호</th>

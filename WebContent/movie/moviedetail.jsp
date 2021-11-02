@@ -11,8 +11,58 @@
 <html>
 <head>
     <title>영화 상세정보</title>
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script>
+        function modifyMovie(movieNo) {
+            let confirmflag = confirm("영화 정보를 수정하시겠습니까?");
+            if (confirmflag) {
+                window.location.replace("${contextPath}/movie/modify?movieid=" + movieNo);
+            }
+        }
+        function deleteMovie(movieNo) {
+            let confirmflag = confirm("삭제하면 복구할 수 없습니다.\n정말로 이 영화를 삭제하시겠습니까?");
+            if (confirmflag) {
+                window.location.replace("${contextPath}/movie/delete?movieid=" + movieNo);
+            } else {
+                alert("영화 삭제를 취소했습니다.");
+            }
+        }
+    </script>
 </head>
 <body>
+<c:choose>
+    <c:when test="${msg=='update_success'}">
+        <script>
+            $(function () {
+               alert("영화 정보를 수정했습니다.");
+            });
+        </script>
+    </c:when>
+    <c:when test="${msg=='update_fail'}">
+        <script>
+            $(function () {
+                alert("영화 정보를 수정하지 못했습니다.");
+            });
+            window.location.replace("${contextPath}/movie/modify?movieid=${movie.movieNo}");
+        </script>-
+    </c:when>
+    <c:when test="${msg=='add_success'}">
+        <script>
+            $(function () {
+                alert("영화를 추가했습니다.");
+            });
+        </script>
+    </c:when>
+    <c:when test="${msg=='add_fail'}">
+        <script>
+            $(function () {
+                alert("영화를 추가하지 못했습니다.");
+            });
+            window.location.replace("${contextPath}/movie/add");
+        </script>
+    </c:when>
+</c:choose>
+
 <h1 align="center">영화 상세정보</h1>
 
 <div>
@@ -21,8 +71,9 @@
 </div>
 <div>
     <h2>${movie.name}</h2>
+    <input type="hidden" value="${movie.movieNo}">
     <p>${movie.date} 개봉 / ${movie.genre} / ${movie.nation}</p>
-    <p>원제 : ${movie.nameOrigin}</p>
+    <p>원제 ${movie.nameOrigin} / 상영시간 ${movie.runningTime}분</p>
     <h3>평균⭐️ ${movie.average} (${movie.ratingCount}명 평가)</h3>
 </div>
 <div>
@@ -47,33 +98,9 @@
     <p><!-- 컬렉션 영역 --></p>
 </div>
 <div>
-    <p><a href="${contextPath}/movie/update?movieid=${movie.movieNo}">수정하기</a></p>
+    <p><button type="button" onclick="modifyMovie(${movie.movieNo})">수정하기</button>
+        <button type="button" onclick="deleteMovie(${movie.movieNo})">삭제하기</button></p>
+    <p><a href="${contextPath}/movie/list">목록보기</a></p>
 </div>
-<!--
-<table align="center">
-    <tr>
-        <th>번호</th>
-        <th>포스터</th>
-        <th>이름</th>
-        <th>장르</th>
-        <th>개봉일</th>
-        <th>러닝타임</th>
-        <th>별점</th>
-    </tr>
-    <c:set var="cnt" value="1" />
-    <c:forEach items="${movies}" var="movie">
-        <c:set var="sum" value="${sum+1}" />
-        <tr>
-            <td>${sum}</td>
-            <td>${movie.posterUrl}</td>
-            <td><a href="moviedetail?movieid=${movie.movieNo}">${movie.name}</a></td>
-            <td>${movie.genre}</td>
-            <td>${movie.date}</td>
-            <td>${movie.runningTime}</td>
-            <td>${movie.average}</td>
-        </tr>
-    </c:forEach>
-</table>
--->
 </body>
 </html>
