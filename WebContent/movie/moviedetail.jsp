@@ -100,7 +100,7 @@
 <div>
     <p><button type="button" onclick="modifyMovie(${movie.movieNo})">수정하기</button>
         <button type="button" onclick="deleteMovie(${movie.movieNo})">삭제하기</button></p>
-    <p><a href="${contextPath}/movie/list">목록보기</a></p>
+    <p><button type="button" onclick="window.history.back();">뒤로가기</button></p>
 </div>
 </body>
 </html>
