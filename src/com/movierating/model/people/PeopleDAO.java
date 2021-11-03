@@ -63,4 +63,81 @@ public class PeopleDAO {
 
         return people;
     }
+
+    public PeopleDTO addPeople(String name, String profileImageUrl) {
+        PeopleDTO people = null;
+        String SQL = "insert into PEOPLE (name, PROFILE_IMAGE_URL) values (?, ?)";
+        String SQL_getPid = "select pid from PEOPLE where name = ? and PROFILE_IMAGE_URL = ?";
+
+        Connection conn = DBUtil.dbConnect("");
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        int pid = 0;
+
+        try {
+            st = conn.prepareStatement(SQL);
+            st.setString(1, name);
+            st.setString(2, profileImageUrl);
+            rs = st.executeQuery();
+
+            st = conn.prepareStatement(SQL_getPid);
+            st.setString(1, name);
+            st.setString(2, profileImageUrl);
+            rs = st.executeQuery();
+            while(rs.next()) {
+                pid = rs.getInt(1);
+            }
+            people = new PeopleDTO(pid, name, profileImageUrl);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            DBUtil.dbClose(conn, st, rs);
+        }
+
+        return people;
+    }
+
+    public PeopleDTO modifyPeople(int pid, String name, String profileImageUrl) {
+        PeopleDTO people = null;
+        String SQL = "update people set name = ?, profile_image_url = ? where pid = ?";
+
+        Connection conn = DBUtil.dbConnect("");
+        PreparedStatement st = null;
+        ResultSet rs = null;
+
+        try {
+            st = conn.prepareStatement(SQL);
+            st.setString(1, name);
+            st.setString(2, profileImageUrl);
+            st.setInt(3, pid);
+            rs = st.executeQuery();
+
+            people = new PeopleDTO(pid, name, profileImageUrl);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            DBUtil.dbClose(conn, st, rs);
+        }
+
+        return people;
+    }
+
+    public boolean deletePeople(int pid) {
+        String SQL = "delete from PEOPLE where pid = ?";
+        Connection conn = DBUtil.dbConnect("");
+        PreparedStatement st = null;
+        ResultSet rs = null;
+
+        try {
+            st = conn.prepareStatement(SQL);
+            st.setInt(1, pid);
+            rs = st.executeQuery();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            DBUtil.dbClose(conn, st, rs);
+        }
+        return true;
+    }
 }

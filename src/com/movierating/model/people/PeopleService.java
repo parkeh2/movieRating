@@ -12,4 +12,16 @@ public class PeopleService {
     public PeopleDTO selectPeople(int pid) {
         return dao.selectPeople(pid);
     }
+
+    public PeopleDTO addPeople(String name, String profileImageUrl) {
+        return dao.addPeople(name, profileImageUrl);
+    }
+
+    public PeopleDTO modifyPeople(int pid, String name, String profileImageUrl) {
+        return dao.modifyPeople(pid, name, profileImageUrl);
+    }
+
+    public boolean deletePeople(int pid) {
+        return dao.deletePeople(pid);
+    }
 }

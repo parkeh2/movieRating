@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="contextPath"  value="${pageContext.request.contextPath}"  />
 
 <html>
 <head>
@@ -38,8 +39,8 @@
                     <c:set var="sum" value="${sum+1}" />
                     <tr>
                         <td>${sum}</td>
-                        <td><a href="moviedetail?movieid=${movie.movieNo}"><img src="/images/poster/${movie.posterUrl}" alt="${movie.posterUrl}" width="50"></a></td>
-                        <td><a href="moviedetail?movieid=${movie.movieNo}">${movie.name}</a></td>
+                        <td><a href="${contextPath}/movie/moviedetail?movieid=${movie.movieNo}"><img src="${contextPath}/images/poster/${movie.posterUrl}" alt="${movie.posterUrl}" width="50"></a></td>
+                        <td><a href="${contextPath}/movie/moviedetail?movieid=${movie.movieNo}">${movie.name}</a></td>
                         <td>${movie.genre}</td>
                         <td>${movie.date}</td>
                         <td>${movie.runningTime}</td>

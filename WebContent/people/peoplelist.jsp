@@ -10,11 +10,11 @@
 <c:set var="contextPath"  value="${pageContext.request.contextPath}"  />
 <html>
 <head>
-    <title>감독/배우 목록</title>
+    <title>인물 목록</title>
 </head>
 <body>
-<h1 align="center">감독/배우 목록</h1>
-<p align="center"><a href="${contextPath}/people/add">인물 추가</a></p>
+<h1 align="center">인물 목록</h1>
+<p align="center"><a href="${contextPath}/people/peopleadd.jsp">인물 추가</a></p>
 <table align="center">
     <tr>
         <th>번호</th>
@@ -34,7 +34,7 @@
                 <c:set var="sum" value="${sum+1}" />
                 <tr>
                     <td>${sum}</td>
-                    <td><a href="${contextPath}/people/detail?pid=${people.pid}"><img src="/images/poster/${people.profileImageUrl}" alt="${people.profileImageUrl}" width="50"></a></td>
+                    <td><a href="${contextPath}/people/detail?pid=${people.pid}"><img src="${contextPath}/images/poster/${people.profileImageUrl}" alt="${people.profileImageUrl}" width="50"></a></td>
                     <td><a href="${contextPath}/people/detail?pid=${people.pid}">${people.name}</a></td>
                     <td><!-- 출연작 리스트 3개만 출력 --></td>
                 </tr>
