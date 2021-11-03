@@ -21,6 +21,7 @@
     <h1>Movie Rating</h1>
     <ul>
         <li><a href="${contextPath}/movie/list">영화 목록 조회</a></li>
+        <li><a href="${contextPath}/people/list">인물 조회</a></li>
         <li><a href="${contextPath}/search">검색</a></li>
     </ul>
 </body>

@@ -12,6 +12,7 @@ import javax.servlet.annotation.*;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 @WebServlet(name = "MovieAddServlet", value = "/movie/add")
@@ -36,9 +37,10 @@ public class MovieAddServlet extends HttpServlet {
         String name, nameOrigin, genre, nation, detail, posterUrl;
         Date date;
         int runningTime, age;
-
 */
 
+
+/*
         String name = request.getParameter("name");
         String nameOrigin = request.getParameter("nameorigin");
         Date date = Date.valueOf(request.getParameter("date"));
@@ -48,7 +50,18 @@ public class MovieAddServlet extends HttpServlet {
         String nation = request.getParameter("nation");
         String detail = request.getParameter("detail");
         String posterUrl = request.getParameter("poster_url");
-/*
+*/
+
+        String name = null;
+        String nameOrigin = null;
+        Date date = null;
+        String genre = null;
+        int runningTime = 0;
+        int age = 0;
+        String nation = null;
+        String detail = null;
+        String posterUrl = null;
+
 
         // 파일 업로드 구현중
         String path = getServletContext().getRealPath("/images/poster");
@@ -66,8 +79,23 @@ public class MovieAddServlet extends HttpServlet {
                     String fieldName = fileItem.getFieldName();
                     if (fieldName.equals("name")) {
                         name = fileItem.getString(encoding);
+                    } else if (fieldName.equals("nameorigin")) {
+                        nameOrigin = fileItem.getString(encoding);
+                    } else if (fieldName.equals("date")) {
+                        String dateString = fileItem.getString(encoding);
+                        System.out.println(dateString);
+                        date = java.sql.Date.valueOf(dateString);
+                    } else if (fieldName.equals("genre")) {
+                        genre = fileItem.getString(encoding);
+                    } else if (fieldName.equals("runningtime")) {
+                        runningTime = Integer.parseInt(fileItem.getString(encoding));
+                    } else if (fieldName.equals("age")) {
+                        age = Integer.parseInt(fileItem.getString(encoding));
+                    } else if (fieldName.equals("nation")) {
+                        nation = fileItem.getString(encoding);
+                    } else if (fieldName.equals("detail")) {
+                        detail = fileItem.getString(encoding);
                     }
-
                     System.out.println(fileItem.getFieldName() + "=" + fileItem.getString(encoding));
                 } else {
                     System.out.println("파라미터명:" + fileItem.getFieldName());
@@ -82,6 +110,7 @@ public class MovieAddServlet extends HttpServlet {
                         String fileName = fileItem.getName().substring(idx + 1);
                         File uploadFile = new File(currentDirPath + "\\" + fileName);
                         fileItem.write(uploadFile);
+                        posterUrl = fileName;
                     } // end if
                 } // end if
             } // end for
@@ -89,7 +118,6 @@ public class MovieAddServlet extends HttpServlet {
             e.printStackTrace();
         }
         //파일 업로드 끝
-*/
 
         movie.setName(name);
         movie.setNameOrigin(nameOrigin);

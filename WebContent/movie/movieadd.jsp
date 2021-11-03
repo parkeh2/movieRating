@@ -61,7 +61,7 @@
         </tr>
         <tr>
             <td>포스터</td>
-            <td><input type="text" name="poster_url"></td>
+            <td><input type="file" name="poster_url"></td>
         </tr>
         <tr>
            <td colspan="2"><input type="submit" value="등록하기"><input type="reset" value="다시입력"></td>
