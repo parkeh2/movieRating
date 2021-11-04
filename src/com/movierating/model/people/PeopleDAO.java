@@ -1,10 +1,8 @@
 package com.movierating.model.people;
 
-import com.movierating.model.movie.MovieDTO;
 import com.movierating.util.DBUtil;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -85,7 +83,7 @@ public class PeopleDAO {
             st.setString(1, name);
             st.setString(2, profileImageUrl);
             rs = st.executeQuery();
-            while(rs.next()) {
+            while (rs.next()) {
                 pid = rs.getInt(1);
             }
             people = new PeopleDTO(pid, name, profileImageUrl);
@@ -145,7 +143,7 @@ public class PeopleDAO {
     public List<PeopleDTO> selectPeopleByName(String searchName) {
         PeopleDTO people = null;
         ArrayList<PeopleDTO> peopleList = new ArrayList<>();
-        String SQL = "select * from PEOPLE where NAME like \'%"+ searchName +"%\'";
+        String SQL = "select * from PEOPLE where NAME like \'%" + searchName + "%\'";
         System.out.println(SQL);
 
         Connection conn = DBUtil.dbConnect("");

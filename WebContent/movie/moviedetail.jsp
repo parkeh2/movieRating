@@ -78,8 +78,9 @@
 </div>
 <div>
     <h3>별점 입력</h3>
-    <form action="rating">
-        <p>별점 <select name="star" id="star">
+    <form action="${contextPath}/rating" method="post">
+        <input type="hidden" name="movieid" value="${movie.movieNo}">
+        <p>별점 <select name="rscore" id="star">
             <option value="0">⭐ X 0</option>
             <option value="1">⭐ X 1</option>
             <option value="2">⭐️ X 2</option>
