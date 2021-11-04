@@ -8,6 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="contextPath"  value="${pageContext.request.contextPath}"  />
+
 <html>
 <head>
     <title>영화 상세정보</title>
@@ -104,7 +105,31 @@
 </div>
 <div>
     <h3>출연/제작</h3>
-    <p><!-- 출연/제작자 영역 --></p>
+    <p>
+        <table>
+            <tr>
+                <th>사진</th>
+                <th>이름</th>
+                <th>배역</th>
+            </tr>
+    <c:choose>
+        <c:when test="${empty castingList}">
+            <tr>
+                <td colspan="3">출연자가 없습니다.</td>
+            </tr>
+        </c:when>
+        <c:when test="${!empty castingList}">
+            <c:forEach items="${castingList}" var="casting">
+                <tr>
+                    <td><a href="${contextPath}/people/pid=${casting.pid}"><img src="${contextPath}/images/casting/${casting.profileImageUrl}" alt="${casting.profileImageUrl}" width="50"></a></td>
+                    <td><a href="${contextPath}/people/pid=${casting.pid}">${casting.name}</a></td>
+                    <td>${casting.role}</td>
+                </tr>
+            </c:forEach>
+        </c:when>
+    </c:choose>
+        </table>
+    </p>
 </div>
 <div>
     <h3>코멘트</h3>
