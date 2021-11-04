@@ -1,5 +1,6 @@
 package com.movierating.model.people;
 
+import com.movierating.model.movie.MovieDTO;
 import com.movierating.util.DBUtil;
 
 import java.sql.Connection;
@@ -139,5 +140,35 @@ public class PeopleDAO {
             DBUtil.dbClose(conn, st, rs);
         }
         return true;
+    }
+
+    public List<PeopleDTO> selectPeopleByName(String searchName) {
+        PeopleDTO people = null;
+        ArrayList<PeopleDTO> peopleList = new ArrayList<>();
+        String SQL = "select * from PEOPLE where NAME like \'%"+ searchName +"%\'";
+        System.out.println(SQL);
+
+        Connection conn = DBUtil.dbConnect("");
+        PreparedStatement st = null;
+        ResultSet rs = null;
+
+        try {
+            st = conn.prepareStatement(SQL);
+            rs = st.executeQuery();
+            while (rs.next()) {
+                int pid = rs.getInt("pid");
+                String name = rs.getString("name");
+                String profileImageUrl = rs.getString("profile_image_url");
+
+                people = new PeopleDTO(pid, name, profileImageUrl);
+                peopleList.add(people);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            DBUtil.dbClose(conn, st, rs);
+        }
+
+        return peopleList;
     }
 }

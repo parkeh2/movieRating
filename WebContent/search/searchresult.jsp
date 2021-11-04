@@ -12,14 +12,10 @@
 <html>
 <head>
     <title>검색 결과</title>
-    <style>
-        h1, table {
-            align: center;
-        }
-    </style>
 </head>
 <body>
     <h1>검색 결과</h1>
+    <h2>영화</h2>
     <table>
         <tr>
             <th>번호</th>
@@ -48,6 +44,34 @@
                         <td>${movie.date}</td>
                         <td>${movie.runningTime}</td>
                         <td>${movie.average}</td>
+                    </tr>
+                </c:forEach>
+            </c:when>
+        </c:choose>
+    </table>
+    <h2>인물</h2>
+    <table>
+        <tr>
+            <th>번호</th>
+            <th>사진</th>
+            <th>이름</th>
+            <th>출연작</th>
+        </tr>
+        <c:choose>
+            <c:when test="${empty people}">
+                <tr>
+                    <td colspan="7">검색된 인물이 없습니다.</td>
+                </tr>
+            </c:when>
+            <c:when test="${!empty people}">
+                <c:set var="cnt" value="1" />
+                <c:forEach items="${people}" var="people">
+                    <c:set var="sum" value="${sum+1}" />
+                    <tr>
+                        <td>${sum}</td>
+                        <td><a href="${contextPath}/people/detail?pid=${people.pid}"><img src="${contextPath}/images/poster/${people.profileImageUrl}" alt="${people.profileImageUrl}" width="50"></a></td>
+                        <td><a href="${contextPath}/people/detail?pid=${people.pid}">${people.name}</a></td>
+                        <td><!-- 출연작 리스트 3개만 출력 --></td>
                     </tr>
                 </c:forEach>
             </c:when>

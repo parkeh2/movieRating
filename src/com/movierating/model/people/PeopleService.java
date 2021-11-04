@@ -13,6 +13,10 @@ public class PeopleService {
         return dao.selectPeople(pid);
     }
 
+    public List<PeopleDTO> selectPeopleByName(String name) {
+        return dao.selectPeopleByName(name);
+    }
+
     public PeopleDTO addPeople(String name, String profileImageUrl) {
         return dao.addPeople(name, profileImageUrl);
     }
