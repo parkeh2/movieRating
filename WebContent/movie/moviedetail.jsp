@@ -74,11 +74,27 @@
     <input type="hidden" value="${movie.movieNo}">
     <p>${movie.date} 개봉 / ${movie.genre} / ${movie.nation}</p>
     <p>원제 ${movie.nameOrigin} / 상영시간 ${movie.runningTime}분</p>
-    <h3>평균⭐️ ${movie.average} (${movie.ratingCount}명 평가)</h3>
+    <h3>평균별점 ⭐️ ${movie.average} (${movie.ratingCount}명 평가)</h3>
 </div>
 <div>
+    <h3>별점 입력</h3>
     <form action="rating">
-        <input type="text" size="7" value="평점입력"><input type="submit" value="평가하기">
+        <p>별점 <select name="star" id="star">
+            <option value="0">⭐ X 0</option>
+            <option value="1">⭐ X 1</option>
+            <option value="2">⭐️ X 2</option>
+            <option value="3">⭐ X 3</option>
+            <option value="4">⭐ X 4</option>
+            <option value="5">⭐ X 5</option>
+            <option value="6">⭐ X 6</option>
+            <option value="7">⭐ X 7</option>
+            <option value="8">⭐️ X 8</option>
+            <option value="9">⭐️ X 9</option>
+            <option value="10">⭐️ X 10</option>
+        </select></p>
+        <p>코멘트</p>
+        <textarea name="rcomment" id="rcomment" cols="30" rows="5"></textarea>
+        <input type="submit" value="평가하기">
     </form>
 </div>
 <div>
