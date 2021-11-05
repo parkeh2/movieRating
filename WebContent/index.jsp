@@ -11,12 +11,18 @@
 <html>
 <head>
     <title>Movie Rating</title>
+    <style>
+        h1, ul {
+            align: center;
+        }
+    </style>
 </head>
 <body>
     <h1>Movie Rating</h1>
     <ul>
         <li><a href="${contextPath}/movie/list">영화 목록 조회</a></li>
-        <li><a href="${contextPath}/movie/search">영화 검색</a></li>
+        <li><a href="${contextPath}/people/list">인물 조회</a></li>
+        <li><a href="${contextPath}/search">검색</a></li>
     </ul>
 </body>
 </html>

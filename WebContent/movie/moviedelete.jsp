@@ -10,8 +10,7 @@
 <c:set var="contextPath"  value="${pageContext.request.contextPath}"  />
 <html>
 <head>
-    <title>영화 삭제 결과</title>
-    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <title>영화 삭제</title>
 </head>
 <body>
     <c:choose>

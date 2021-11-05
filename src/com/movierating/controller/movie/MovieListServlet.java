@@ -3,11 +3,13 @@ package com.movierating.controller.movie;
 import com.movierating.model.movie.MovieDTO;
 import com.movierating.model.movie.MovieService;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
-import javax.servlet.annotation.*;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet(name = "MovieListServlet", value = "/movie/list")
@@ -18,9 +20,14 @@ public class MovieListServlet extends HttpServlet {
 
         MovieService service = new MovieService();
         List<MovieDTO> movies = service.selectMovies();
+/*
+
+        CastingService castingService = new CastingService();
+        List<CastingDTO> castingList = castingService.selectCastingByMovieNo(movieNo);
+*/
+
+
         request.setAttribute("movies", movies);
-/*        String path = getServletContext().getRealPath("movielistall.jsp");
-        System.out.println(path);*/
         RequestDispatcher rd = request.getRequestDispatcher("movielistall.jsp");
         rd.forward(request, response);
     }

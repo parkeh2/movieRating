@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: jungcomet
-  Date: 2021/10/28
-  Time: 3:23 오후
+  Date: 2021/11/02
+  Time: 4:08 오후
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -11,13 +11,12 @@
 
 <html>
 <head>
-    <title>영화 목록</title>
-    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <title>검색 결과</title>
 </head>
 <body>
-<h1 align="center">영화 목록</h1>
-    <p align="center"><a href="${contextPath}/movie/movieadd.jsp">영화 추가</a></p>
-    <table align="center">
+    <h1>검색 결과</h1>
+    <h2>영화</h2>
+    <table>
         <tr>
             <th>번호</th>
             <th>포스터</th>
@@ -30,7 +29,7 @@
         <c:choose>
             <c:when test="${empty movies}">
                 <tr>
-                    <td colspan="7">등록된 영화가 없습니다.</td>
+                    <td colspan="7">검색된 영화가 없습니다.</td>
                 </tr>
             </c:when>
             <c:when test="${!empty movies}">
@@ -48,9 +47,35 @@
                     </tr>
                 </c:forEach>
             </c:when>
-
         </c:choose>
-
+    </table>
+    <h2>인물</h2>
+    <table>
+        <tr>
+            <th>번호</th>
+            <th>사진</th>
+            <th>이름</th>
+            <th>출연작</th>
+        </tr>
+        <c:choose>
+            <c:when test="${empty people}">
+                <tr>
+                    <td colspan="7">검색된 인물이 없습니다.</td>
+                </tr>
+            </c:when>
+            <c:when test="${!empty people}">
+                <c:set var="cnt" value="1" />
+                <c:forEach items="${people}" var="people">
+                    <c:set var="sum" value="${sum+1}" />
+                    <tr>
+                        <td>${sum}</td>
+                        <td><a href="${contextPath}/people/detail?pid=${people.pid}"><img src="${contextPath}/images/poster/${people.profileImageUrl}" alt="${people.profileImageUrl}" width="50"></a></td>
+                        <td><a href="${contextPath}/people/detail?pid=${people.pid}">${people.name}</a></td>
+                        <td><!-- 출연작 리스트 3개만 출력 --></td>
+                    </tr>
+                </c:forEach>
+            </c:when>
+        </c:choose>
     </table>
 </body>
 </html>

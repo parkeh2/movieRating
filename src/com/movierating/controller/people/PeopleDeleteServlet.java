@@ -1,16 +1,15 @@
-package com.movierating.controller.movie;
+package com.movierating.controller.people;
 
-import com.movierating.model.movie.MovieDTO;
 import com.movierating.model.movie.MovieService;
+import com.movierating.model.people.PeopleService;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
-import java.util.List;
 
-@WebServlet(name = "MovieDeleteServlet", value = "/movie/delete")
-public class MovieDeleteServlet extends HttpServlet {
+@WebServlet(name = "PeopleDeleteServlet", value = "/people/delete")
+public class PeopleDeleteServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doHandle(request, response);
@@ -21,21 +20,21 @@ public class MovieDeleteServlet extends HttpServlet {
         doHandle(request, response);
     }
 
-    protected void doHandle(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void doHandle(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("utf-8");
 
-        String movieid = request.getParameter("movieid");
-        int movieNo = Integer.parseInt(movieid);
+        String pidStr = request.getParameter("pid");
+        int pid = Integer.parseInt(pidStr);
 
-        MovieService service = new MovieService();
-        boolean result = service.deleteMovie(movieNo);
+        PeopleService service = new PeopleService();
+        boolean result = service.deletePeople(pid);
         if (result) {
             request.setAttribute("msg", "delete_success");
         } else {
-            request.setAttribute("movieid", movieNo);
+            request.setAttribute("pid", pid);
             request.setAttribute("msg", "delete_fail");
         }
-        RequestDispatcher rd = request.getRequestDispatcher("moviedelete.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("peopledelete.jsp");
         rd.forward(request, response);
     }
 }

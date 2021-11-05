@@ -29,4 +29,8 @@ public class MovieService {
     public int selectMovieByCondition(String name, Date date, int runningTime) {
         return dao.selectMovieByCondition(name, date, runningTime);
     }
+
+    public List<MovieDTO> selectMovieByName(String name) {
+        return dao.selectMovieByName(name);
+    }
 }
