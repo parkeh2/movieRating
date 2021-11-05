@@ -8,6 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="contextPath"  value="${pageContext.request.contextPath}"  />
+<c:set var="movieid" value="${movie.movieNo}}" />
 
 <html>
 <head>
@@ -28,6 +29,11 @@
                 alert("영화 삭제를 취소했습니다.");
             }
         }
+        
+/*        window.onload = function () {
+            $("#casting").load("/casting?movieid=${movieid}");
+        };*/
+        
     </script>
 </head>
 <body>
@@ -79,24 +85,10 @@
 </div>
 <div>
     <h3>별점 입력</h3>
-    <form action="${contextPath}/rating" method="post">
+    <form action="${contextPath}/rating/form" method="post">
         <input type="hidden" name="movieid" value="${movie.movieNo}">
-        <p>별점 <select name="rscore" id="star">
-            <option value="0">⭐ X 0</option>
-            <option value="1">⭐ X 1</option>
-            <option value="2">⭐️ X 2</option>
-            <option value="3">⭐ X 3</option>
-            <option value="4">⭐ X 4</option>
-            <option value="5">⭐ X 5</option>
-            <option value="6">⭐ X 6</option>
-            <option value="7">⭐ X 7</option>
-            <option value="8">⭐️ X 8</option>
-            <option value="9">⭐️ X 9</option>
-            <option value="10">⭐️ X 10</option>
-        </select></p>
-        <p>코멘트</p>
-        <textarea name="rcomment" id="rcomment" cols="30" rows="5"></textarea>
-        <input type="submit" value="평가하기">
+        <input type="hidden" name="name" value="${movie.name}">
+        <input type="submit" value="별점 평가하기">
     </form>
 </div>
 <div>
@@ -105,31 +97,9 @@
 </div>
 <div>
     <h3>출연/제작</h3>
-    <p>
-        <table>
-            <tr>
-                <th>사진</th>
-                <th>이름</th>
-                <th>배역</th>
-            </tr>
-    <c:choose>
-        <c:when test="${empty castingList}">
-            <tr>
-                <td colspan="3">출연자가 없습니다.</td>
-            </tr>
-        </c:when>
-        <c:when test="${!empty castingList}">
-            <c:forEach items="${castingList}" var="casting">
-                <tr>
-                    <td><a href="${contextPath}/people/pid=${casting.pid}"><img src="${contextPath}/images/casting/${casting.profileImageUrl}" alt="${casting.profileImageUrl}" width="50"></a></td>
-                    <td><a href="${contextPath}/people/pid=${casting.pid}">${casting.name}</a></td>
-                    <td>${casting.role}</td>
-                </tr>
-            </c:forEach>
-        </c:when>
-    </c:choose>
-        </table>
-    </p>
+    <div id="casting">
+        <a href="/casting?movieid=${movie.movieNo}">캐스팅 목록</a>
+    </div>
 </div>
 <div>
     <h3>코멘트</h3>

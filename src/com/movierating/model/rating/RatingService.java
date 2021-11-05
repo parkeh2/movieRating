@@ -6,4 +6,8 @@ public class RatingService {
     public boolean insertRating(int mno, int movie_id, int rscore, String rcomment) {
         return dao.insertRating(mno, movie_id, rscore, rcomment);
     }
+
+    public RatingDTO selectRating(int mno, int movieNo) {
+        return dao.selectRating(mno, movieNo);
+    }
 }
