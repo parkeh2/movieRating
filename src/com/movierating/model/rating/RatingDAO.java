@@ -45,4 +45,28 @@ public class RatingDAO {
 
         return true;
     }
+
+    public RatingDTO selectRating(int mno, int movieNo) {
+        String SQL1 = "select * from RATING where MNO = ? and MOVIE_ID = ?";
+        RatingDTO rating = null;
+        Connection conn = DBUtil.dbConnect("");
+        PreparedStatement st = null;
+        ResultSet rs = null;
+
+        try {
+            st = conn.prepareStatement(SQL1);
+            st.setInt(1, mno);
+            st.setInt(2, movieNo);
+            rs = st.executeQuery();
+            while (rs.next()) {
+                rating = new RatingDTO(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getString(4));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return rating;
+        } finally {
+            DBUtil.dbClose(conn, st, rs);
+        }
+        return rating;
+    }
 }

@@ -1,6 +1,8 @@
 package com.movierating.controller.rating;
 
 import com.movierating.model.movie.MovieDTO;
+import com.movierating.model.rating.RatingDTO;
+import com.movierating.model.rating.RatingService;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -26,10 +28,21 @@ public class RatingFormServlet extends HttpServlet {
         int movieNo = Integer.parseInt(movie_id);
         String name = request.getParameter("name");
 
-        request.setAttribute("movieid", movieNo);
-        request.setAttribute("name", name);
+        RatingService service = new RatingService();
+        RatingDTO rating = service.selectRating(1, movieNo);
 
-        RequestDispatcher rd = request.getRequestDispatcher("../rating/ratingform.jsp");
+        if (rating != null) {
+            System.out.println(movieNo + " / " + name + " / " + rating);
+            request.setAttribute("movieid", movieNo);
+            request.setAttribute("name", name);
+            request.setAttribute("rating", rating);
+        } else {
+            System.out.println(movieNo + " / " + name);
+            request.setAttribute("movieid", movieNo);
+            request.setAttribute("name", name);
+        }
+
+        RequestDispatcher rd = request.getRequestDispatcher("/rating/ratingform.jsp");
         rd.forward(request, response);
     }
 }

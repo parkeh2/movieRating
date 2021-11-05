@@ -10,7 +10,6 @@ import java.util.List;
 
 public class CastingDAO {
     public List<CastingDTO> selectCastingByMovieNo(int movieNo) {
-        CastingDTO casting = null;
         ArrayList<CastingDTO> castingList = new ArrayList<>();
         String SQL = "select people.*, casting.role from PEOPLE, CASTING where casting.MOVIE_ID = ?";
 
@@ -23,12 +22,13 @@ public class CastingDAO {
             st.setInt(1, movieNo);
             rs = st.executeQuery();
             while (rs.next()) {
-                int pid = rs.getInt("pid");
-                String name = rs.getString("movie_name");
-                String profileImageUrl = rs.getString("profile_image_url");
-                String role = rs.getString("role");
+                int pid = rs.getInt(1);
+                String name = rs.getString(2);
+                String profileImageUrl = rs.getString(3);
+                String role = rs.getString(4);
 
-                casting = new CastingDTO(movieNo, pid, name, profileImageUrl, role);
+                CastingDTO casting = new CastingDTO(movieNo, pid, name, profileImageUrl, role);
+                System.out.println(casting);
                 castingList.add(casting);
             }
         } catch (Exception e) {

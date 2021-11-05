@@ -30,11 +30,12 @@ public class CastingServlet extends HttpServlet {
 
         CastingService service = new CastingService();
         List<CastingDTO> castingList = service.selectCastingByMovieNo(movieNo);
+        //System.out.println(castingList);
 
         request.setAttribute("movieid", movieNo);
         request.setAttribute("castingList", castingList);
 
-        //RequestDispatcher rd = request.getRequestDispatcher("moviedetail.jsp");
-        //rd.forward(request, response);
+        RequestDispatcher rd = request.getRequestDispatcher("/casting/castinglist.jsp");
+        rd.forward(request, response);
     }
 }

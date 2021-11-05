@@ -31,6 +31,7 @@ public class MovieDetailServlet extends HttpServlet {
         MovieDTO movie = service.selectMovieByID(movieNo);
         CastingService castingService = new CastingService();
         List<CastingDTO> castingList = castingService.selectCastingByMovieNo(movieNo);
+        System.out.println(castingList.size());
 
         request.setAttribute("movie", movie);
         request.setAttribute("castingList", castingList);
