@@ -25,6 +25,7 @@ public class RatingServlet extends HttpServlet {
 
         String movie_id_Str = request.getParameter("movieid");
         int movie_id = Integer.parseInt(movie_id_Str);
+        System.out.println(movie_id);
         String rscore_Str = request.getParameter("rscore");
         int rscore = Integer.parseInt(rscore_Str);
         String rcomment = request.getParameter("rcomment");
