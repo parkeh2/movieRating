@@ -2,9 +2,12 @@ package com.movierating.model.rating;
 
 public class RatingDTO {
     private int mno;
+    private String mname;
+    private String mid;
     private int movie_id;
     private int rscore;
     private String rcomment;
+
 
     public RatingDTO() {
     }
@@ -14,6 +17,31 @@ public class RatingDTO {
         this.movie_id = movie_id;
         this.rscore = rscore;
         this.rcomment = rcomment;
+    }
+
+    public RatingDTO(int mno, String mname, String mid, int movie_id, int rscore, String rcomment) {
+        this.mno = mno;
+        this.mname = mname;
+        this.mid = mid;
+        this.movie_id = movie_id;
+        this.rscore = rscore;
+        this.rcomment = rcomment;
+    }
+
+    public String getMname() {
+        return mname;
+    }
+
+    public void setMname(String mname) {
+        this.mname = mname;
+    }
+
+    public String getMid() {
+        return mid;
+    }
+
+    public void setMid(String mid) {
+        this.mid = mid;
     }
 
     public int getMno() {

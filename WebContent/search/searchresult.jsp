@@ -12,9 +12,27 @@
 <html>
 <head>
     <title>검색 결과</title>
+    <script>
+        function change_type() {
+            let searchForm = document.searchform;
+            if (searchForm.searchType[0].selected) {
+                document.searchform.action = "${contextPath}/search/moviename";
+            } else if (searchForm.searchType[1].selected) {
+                document.searchform.action = "${contextPath}/search/people";
+            }
+        }
+    </script>
 </head>
 <body>
     <h1>검색 결과</h1>
+    <form name="searchform" method="post" onsubmit="return change_type();">
+        <select name="searchType">
+            <option value="movie">영화명</option>
+            <option value="people">인물명</option>
+        </select>
+        <input type="text" placeholder="검색어 입력" name="searchname"><input type="submit" value="검색">
+    </form>
+    <hr>
     <h2>영화</h2>
     <table>
         <tr>
@@ -69,7 +87,7 @@
                     <c:set var="sum" value="${sum+1}" />
                     <tr>
                         <td>${sum}</td>
-                        <td><a href="${contextPath}/people/detail?pid=${people.pid}"><img src="${contextPath}/images/poster/${people.profileImageUrl}" alt="${people.profileImageUrl}" width="50"></a></td>
+                        <td><a href="${contextPath}/people/detail?pid=${people.pid}"><img src="${contextPath}/images/people/${people.profileImageUrl}" alt="${people.profileImageUrl}" width="50"></a></td>
                         <td><a href="${contextPath}/people/detail?pid=${people.pid}">${people.name}</a></td>
                         <td><!-- 출연작 리스트 3개만 출력 --></td>
                     </tr>

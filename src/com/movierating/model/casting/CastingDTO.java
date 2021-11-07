@@ -64,4 +64,15 @@ public class CastingDTO {
     public void setRole(String role) {
         this.role = role;
     }
+
+    @Override
+    public String toString() {
+        return "CastingDTO{" +
+                "movieNo=" + movieNo +
+                ", pid=" + pid +
+                ", name='" + name + '\'' +
+                ", profileImageUrl='" + profileImageUrl + '\'' +
+                ", role='" + role + '\'' +
+                '}';
+    }
 }

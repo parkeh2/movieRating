@@ -1,5 +1,6 @@
 package com.movierating.controller.people;
 
+import com.movierating.model.people.PeopleCastingDTO;
 import com.movierating.model.people.PeopleDTO;
 import com.movierating.model.people.PeopleService;
 
@@ -7,6 +8,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
+import java.util.List;
 
 @WebServlet(name = "PeopleDetailServlet", value = "/people/detail")
 public class PeopleDetailServlet extends HttpServlet {
@@ -23,8 +25,10 @@ public class PeopleDetailServlet extends HttpServlet {
 
         PeopleService service = new PeopleService();
         PeopleDTO people = service.selectPeople(pid);
+        List<PeopleCastingDTO> castingList = service.selectPeopleCasting(pid);
 
         request.setAttribute("people", people);
+        request.setAttribute("castingList", castingList);
         RequestDispatcher rd = request.getRequestDispatcher("peopledetail.jsp");
         rd.forward(request, response);
     }
