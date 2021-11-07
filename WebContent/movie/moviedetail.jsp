@@ -29,11 +29,9 @@
                 alert("영화 삭제를 취소했습니다.");
             }
         }
-        
-/*        window.onload = function () {
-            $("#casting").load("/casting?movieid=${movieid}");
-        };*/
-        
+        function addCollection() {
+            window.location.replace("${contextPath}/collection/addmovie?movieid=${movie.movieNo}&moviename=${movie.name}");
+        }
     </script>
 </head>
 <body>
@@ -142,18 +140,38 @@
                     </c:forEach>
                 </c:when>
             </c:choose>
-
         </table>
     </div>
 </div>
 <div>
-    <h3>컬렉션</h3>
-    <p><!-- 컬렉션 영역 --></p>
+    <h3>이 영화가 포함된 컬렉션</h3>
+    <div>
+        <table>
+            <c:choose>
+                <c:when test="${empty collectionList}">
+                    <tr>
+                        <td colspan="2">이 영화가 포함된 컬렉션이 없습니다.</td>
+                    </tr>
+                </c:when>
+                <c:when test="${!empty collectionList}">
+                    <c:forEach items="${collectionList}" var="collection">
+                        <tr>
+                            <td><a href="${contextPath}/collection/detail?coll_no=${collection.coll_no}">${collection.coll_name}</a></td>
+                            <td>${collection.coll_description}</td>
+                        </tr>
+                    </c:forEach>
+                </c:when>
+            </c:choose>
+        </table>
+    </div>
+    <div>
+        <button type="button" onclick="addCollection();">이 영화를 내 컬렉션에 추가하기</button>
+    </div>
 </div>
 <hr>
 <div>
-    <p><button type="button" onclick="modifyMovie(${movie.movieNo})">수정하기</button>
-        <button type="button" onclick="deleteMovie(${movie.movieNo})">삭제하기</button></p>
+    <p><button type="button" onclick="modifyMovie(${movie.movieNo});">수정하기</button>
+        <button type="button" onclick="deleteMovie(${movie.movieNo});">삭제하기</button></p>
     <p><button type="button" onclick="window.history.back();">뒤로가기</button></p>
 </div>
 </body>
