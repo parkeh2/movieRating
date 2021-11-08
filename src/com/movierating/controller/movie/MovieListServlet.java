@@ -20,11 +20,6 @@ public class MovieListServlet extends HttpServlet {
 
         MovieService service = new MovieService();
         List<MovieDTO> movies = service.selectMovies();
-/*
-
-        CastingService castingService = new CastingService();
-        List<CastingDTO> castingList = castingService.selectCastingByMovieNo(movieNo);
-*/
 
 
         request.setAttribute("movies", movies);

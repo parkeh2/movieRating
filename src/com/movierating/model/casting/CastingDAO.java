@@ -11,7 +11,7 @@ import java.util.List;
 public class CastingDAO {
     public List<CastingDTO> selectCastingByMovieNo(int movieNo) {
         ArrayList<CastingDTO> castingList = new ArrayList<>();
-        String SQL = "select people.*, casting.role from PEOPLE, CASTING where casting.MOVIE_ID = ?";
+        String SQL = "select p.pid, p.name, p.PROFILE_IMAGE_URL, c.role from PEOPLE p, CASTING c where p.pid = c.pid and c.MOVIE_ID = ?";
 
         Connection conn = DBUtil.dbConnect("");
         PreparedStatement st = null;
@@ -39,5 +39,6 @@ public class CastingDAO {
 
         return castingList;
     }
+
 
 }

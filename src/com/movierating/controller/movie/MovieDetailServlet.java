@@ -2,13 +2,19 @@ package com.movierating.controller.movie;
 
 import com.movierating.model.casting.CastingDTO;
 import com.movierating.model.casting.CastingService;
+import com.movierating.model.collection.CollectionDAO;
+import com.movierating.model.collection.CollectionDTO;
+import com.movierating.model.collection.CollectionService;
 import com.movierating.model.movie.MovieDTO;
 import com.movierating.model.movie.MovieService;
+import com.movierating.model.rating.RatingDTO;
+import com.movierating.model.rating.RatingService;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet(name = "MovieDetailServlet", value = "/movie/moviedetail")
@@ -31,10 +37,15 @@ public class MovieDetailServlet extends HttpServlet {
         MovieDTO movie = service.selectMovieByID(movieNo);
         CastingService castingService = new CastingService();
         List<CastingDTO> castingList = castingService.selectCastingByMovieNo(movieNo);
-        System.out.println(castingList.size());
+        RatingService ratingService = new RatingService();
+        List<RatingDTO> ratingList = ratingService.selectMemberRatingList(movieNo);
+        CollectionService collectionService = new CollectionService();
+        List<CollectionDTO> collectionList = collectionService.selectCollectionListByMovieNo(movieNo);
 
         request.setAttribute("movie", movie);
         request.setAttribute("castingList", castingList);
+        request.setAttribute("ratingList", ratingList);
+        request.setAttribute("collectionList", collectionList);
         RequestDispatcher rd = request.getRequestDispatcher("moviedetail.jsp");
         rd.forward(request, response);
     }

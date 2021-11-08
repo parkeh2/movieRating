@@ -66,7 +66,7 @@
 
 <div>
     <!--포스터 이미지 출력-->
-    <p><img src="${contextPath}/images/people/${people.profileImageUrl}" alt="${people.profileImageUrl}" /></p>
+    <p><img src="${contextPath}/images/people/${people.profileImageUrl}" alt="${people.profileImageUrl}" width="150"></p>
 </div>
 <div>
     <h2>${people.name}</h2>
@@ -74,7 +74,37 @@
 </div>
 <div>
     <h3>출연/제작</h3>
-    <p><!-- 출연/제작자 영역 --></p>
+    <p>
+    <table>
+        <tr>
+            <th>번호</th>
+            <th>포스터</th>
+            <th>이름(개봉년도)</th>
+            <th>평점</th>
+            <th>배역</th>
+        </tr>
+        <c:choose>
+            <c:when test="${empty castingList}">
+                <tr>
+                    <td colspan="7">등록된 영화가 없습니다.</td>
+                </tr>
+            </c:when>
+            <c:when test="${!empty castingList}">
+                <c:set var="cnt" value="1" />
+                <c:forEach items="${castingList}" var="casting">
+                    <c:set var="sum" value="${sum+1}" />
+                    <tr>
+                        <td>${sum}</td>
+                        <td><a href="${contextPath}/movie/moviedetail?movieid=${casting.movie_id}"><img src="${contextPath}/images/poster/${casting.poster_url}" alt="${casting.poster_url}" width="50"></a></td>
+                        <td><a href="${contextPath}/movie/moviedetail?movieid=${casting.movie_id}">${casting.movie_name} (${casting.movie_year})</a></td>
+                        <td>${casting.average}</td>
+                        <td>${casting.role}</td>
+                    </tr>
+                </c:forEach>
+            </c:when>
+        </c:choose>
+    </table>
+    </p>
 </div>
 <div>
     <p><button type="button" onclick="modifyPeople(${people.pid})">수정하기</button>

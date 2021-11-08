@@ -34,7 +34,7 @@
                 <c:set var="sum" value="${sum+1}" />
                 <tr>
                     <td>${sum}</td>
-                    <td><a href="${contextPath}/people/detail?pid=${people.pid}"><img src="${contextPath}/images/poster/${people.profileImageUrl}" alt="${people.profileImageUrl}" width="50"></a></td>
+                    <td><a href="${contextPath}/people/detail?pid=${people.pid}"><img src="${contextPath}/images/people/${people.profileImageUrl}" alt="${people.profileImageUrl}" width="50"></a></td>
                     <td><a href="${contextPath}/people/detail?pid=${people.pid}">${people.name}</a></td>
                     <td><!-- 출연작 리스트 3개만 출력 --></td>
                 </tr>

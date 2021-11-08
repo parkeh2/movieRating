@@ -1,24 +1,23 @@
 <%--
   Created by IntelliJ IDEA.
   User: jungcomet
-  Date: 2021/10/28
-  Time: 3:23 오후
+  Date: 2021/11/07
+  Time: 10:16 오후
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="contextPath"  value="${pageContext.request.contextPath}"  />
-
 <html>
 <head>
-    <title>영화 목록</title>
-    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <title>컬렉션 상세정보</title>
 </head>
 <body>
-<h1 align="center">영화 목록</h1>
-    <p align="center"><a href="${contextPath}/movie/movieadd.jsp">영화 추가</a></p>
-    <p align="center"><a href="${contextPath}/collection/list">내 컬렉션 보기</a></p>
-    <table align="center">
+    <h1>컬렉션 상세정보</h1>
+    <h2>${collection.coll_name}</h2>
+    <p>${collection.coll_description}</p>
+    <h3>영화 목록</h3>
+    <table>
         <tr>
             <th>번호</th>
             <th>포스터</th>
@@ -29,14 +28,14 @@
             <th>별점</th>
         </tr>
         <c:choose>
-            <c:when test="${empty movies}">
+            <c:when test="${empty collection.movieList}">
                 <tr>
                     <td colspan="7">등록된 영화가 없습니다.</td>
                 </tr>
             </c:when>
-            <c:when test="${!empty movies}">
+            <c:when test="${!empty collection.movieList}">
                 <c:set var="cnt" value="1" />
-                <c:forEach items="${movies}" var="movie">
+                <c:forEach items="${collection.movieList}" var="movie">
                     <c:set var="sum" value="${sum+1}" />
                     <tr>
                         <td>${sum}</td>
@@ -49,9 +48,7 @@
                     </tr>
                 </c:forEach>
             </c:when>
-
-        </c:choose>
-
+    </c:choose>
     </table>
 </body>
 </html>

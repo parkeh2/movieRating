@@ -2,14 +2,13 @@ package com.movierating.controller.rating;
 
 import com.movierating.model.rating.RatingService;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 
-@WebServlet(name = "RatingServlet", value = "/rating/add")
-public class RatingServlet extends HttpServlet {
+@WebServlet(name = "RatingModifyServlet", value = "/rating/modify")
+public class RatingModifyServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doHandle(request, response);
@@ -31,7 +30,7 @@ public class RatingServlet extends HttpServlet {
         String rcomment = request.getParameter("rcomment");
 
         RatingService service = new RatingService();
-        boolean result = service.insertRating(1, movie_id, rscore, rcomment);
+        boolean result = service.updateRating(1, movie_id, rscore, rcomment);
 
         if (result) {
             request.setAttribute("msg", "insert_success");

@@ -17,6 +17,10 @@ public class PeopleService {
         return dao.selectPeopleByName(name);
     }
 
+    public List<PeopleCastingDTO> selectPeopleCasting(int pid) {
+        return dao.selectPeopleCasting(pid);
+    }
+
     public PeopleDTO addPeople(String name, String profileImageUrl) {
         return dao.addPeople(name, profileImageUrl);
     }

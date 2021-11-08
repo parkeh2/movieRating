@@ -16,14 +16,30 @@
     <script>
         $(function () {
             $('#star').val(${rating.rscore}).prop("selected", true);
-            $('#rcomment').val(${rating.rcomment});
-        })
+            $('#rcomment').val('${rating.rcomment}');
+        });
+
+        function confirm_msg_submit() {
+            confirm("별점과 코멘트를 등록하시겠습니까?");
+        }
+
+        function confirm_msg_modify() {
+            confirm("별점과 코멘트를 수정하시겠습니까?");
+        }
     </script>
 </head>
 <body>
 <div>
-    <h3>${name}의 별점을 입력합니다.</h3>
-    <form action="${contextPath}/rating" method="post">
+    <c:choose>
+        <c:when test="${!empty rating}">
+            <h3>이미 등록한 내용이 있습니다. ${name}의 별점과 코멘트를 수정합니다.</h3>
+            <form action="${contextPath}/rating/modify" method="post" onsubmit="confirm_msg_modify()">
+        </c:when>
+        <c:when test="${empty rating}">
+            <h3>${name}의 별점과 코멘트를 새로 등록합니다.</h3>
+            <form action="${contextPath}/rating/add" method="post" onsubmit="confirm_msg_submit()">
+        </c:when>
+    </c:choose>
         <input type="hidden" name="movieid" value="${movieid}">
         <p>별점 <select name="rscore" id="star" value="${rating.rscore}">
             <option value="0">⭐ X 0</option>
@@ -42,6 +58,7 @@
         <textarea name="rcomment" id="rcomment" value="테스트" cols="30" rows="5"></textarea>
         <input type="submit" value="평가하기">
     </form>
+    <p><button type="button" onclick="window.history.back();">뒤로가기</button></p>
 </div>
 </body>
 </html>
